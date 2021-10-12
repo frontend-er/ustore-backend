@@ -59,6 +59,7 @@ class CourseController {
    }
 
 
+
    async getAll(req, res) {
       let {
          sectionId,
@@ -117,21 +118,17 @@ class CourseController {
       return res.json(courses)
    }
 
+
+
    async getOne(req, res) {
-      const {
+      let {
          id
       } = req.params;
-      let course = await Course.findAndCountAll({
+      let course = await Course.findOne({
          where: {
             id
-         },
-         include: [{
-            model: CourseInfo,
-            as: 'info'
-         }]
+         }
       })
-
-
       return res.json(course)
    }
 }

@@ -92,7 +92,7 @@ class UserService {
          ...userDto
       })
 
-      await tokenService.saveToken(userDto.id, token.refreshToken)
+      await tokenService.saveToken(user.id, token.refreshToken)
 
       return {
          ...token,
@@ -115,16 +115,30 @@ class UserService {
       }
       const userData = tokenService.validateRefreshToken(refreshToken);
       const tokenFromDb = await tokenService.findToken(refreshToken);
+
+
+
       if (!userData || !tokenFromDb) {
          throw ApiError.forbidden('Не зарагестрирован');
       }
-      const user = await User.findById(userData.id);
+
+
+
+      const user = await User.findOne({
+         where: {
+            id: userData.id
+         }
+      });
+
+
+
+
       const userDto = new UserDto(user);
       const tokens = tokenService.generateToken({
          ...userDto
       });
 
-      await tokenService.saveToken(userDto.id, tokens.refreshToken);
+      await tokenService.saveToken(user.id, tokens.refreshToken);
       return {
          ...tokens,
          user: userDto

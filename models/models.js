@@ -45,6 +45,20 @@ const BasketCourse = sequelize.define('basket_course', {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+   },
+   poductPrice: {
+      type: DataTypes.INTEGER,
+   },
+   productTitle: {
+      type: DataTypes.STRING,
+
+   },
+   productDescription: {
+      type: DataTypes.STRING,
+   },
+   unit: {
+      type: DataTypes.STRING,
+
    }
 })
 
@@ -180,7 +194,7 @@ Course.hasMany(Rating);
 Rating.belongsTo(Course);
 
 Course.hasMany(BasketCourse);
-BasketCourse.belongsTo(Course)
+BasketCourse.belongsTo(Course);
 
 
 Course.hasMany(CourseInfo, {
