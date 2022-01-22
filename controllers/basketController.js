@@ -54,12 +54,10 @@ class BasketController {
 
    async emptyCart(req, res) {
       try {
-         const basketId = req.query.basketId;
-         const courseId = req.query.courseId;
+         const id = req.query.id;
          const userBasket = await BasketCourse.destroy({
             where: {
-               basketId,
-               courseId,
+               id,
             }
          })
          return res.json(userBasket)
